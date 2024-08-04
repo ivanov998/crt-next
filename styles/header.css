@@ -106,3 +106,8 @@ header.masthead .bg-circle-4 {
   top: -5rem;
   right: 35%;
 }
+
+.theme-switch-btn:hover {
+  background: var(--bs-info) !important;
+  color: var(--bs-black) !important;
+}
