@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import Layout from '../components/Layout';
+import { ThemeProvider } from '../contexts/ThemeContext';
 import '../styles/bootstrap_overrides.css';
 import '../styles/globals.css';
 import '../styles/header.css';
@@ -16,9 +17,11 @@ function App({ Component, pageProps }: AppProps) {
         />
         <title>Chinese Remainder Theorem Calculator</title>
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <ThemeProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
     </>
   );
 }
