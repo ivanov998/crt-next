@@ -5,6 +5,7 @@ import { ThemeProvider } from '../contexts/ThemeContext';
 import '../styles/bootstrap_overrides.css';
 import '../styles/globals.css';
 import '../styles/header.css';
+import '../styles/calculator.css';
 
 function App({ Component, pageProps }: AppProps) {
   return (
