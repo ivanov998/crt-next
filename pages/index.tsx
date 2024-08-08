@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import CongruenceForm from '../components/CongruenceForm';
 import CalculatorOptionButton from '../components/CalculatorOptionButton';
+import SolutionStep from '../components/SolutionStep';
 
 const Home: NextPage = () => {
   return (
@@ -40,7 +41,7 @@ const Home: NextPage = () => {
                 <path d='M13 3.055a9 9 0 1 0 7.941 7.945'></path>
                 <path d='M15 6v3h3l3 -3h-3v-3z'></path>
                 <path d='M15 9l-3 3'></path>
-              </svg>{' '}
+              </svg>
             </CalculatorOptionButton>
             <CalculatorOptionButton name='Practice mode' hashtag='practice'>
               <svg
@@ -61,7 +62,7 @@ const Home: NextPage = () => {
                     <path d='M20,2H8C6.9,2,6,2.9,6,4v12c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V4C22,2.9,21.1,2,20,2z M14.01,15 c-0.59,0-1.05-0.47-1.05-1.05c0-0.59,0.47-1.04,1.05-1.04c0.59,0,1.04,0.45,1.04,1.04C15.04,14.53,14.6,15,14.01,15z M16.51,8.83 c-0.63,0.93-1.23,1.21-1.56,1.81c-0.13,0.24-0.18,0.4-0.18,1.18h-1.52c0-0.41-0.06-1.08,0.26-1.65c0.41-0.73,1.18-1.16,1.63-1.8 c0.48-0.68,0.21-1.94-1.14-1.94c-0.88,0-1.32,0.67-1.5,1.23l-1.37-0.57C11.51,5.96,12.52,5,13.99,5c1.23,0,2.08,0.56,2.51,1.26 C16.87,6.87,17.08,7.99,16.51,8.83z'></path>
                   </g>
                 </g>
-              </svg>{' '}
+              </svg>
             </CalculatorOptionButton>
             <CalculatorOptionButton name='All solutions' hashtag='allsolutions'>
               <svg
@@ -78,10 +79,27 @@ const Home: NextPage = () => {
               >
                 <path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
                 <path d='M9.828 9.172a4 4 0 1 0 0 5.656a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828'></path>
-              </svg>{' '}
+              </svg>
             </CalculatorOptionButton>
           </div>
         </div>
+      </div>
+      <div className='px-lg-5 mt-3 mt-lg-5 fw-bold'>
+        <div>
+          <h2 className='text-center'>Solution</h2>
+          <div className='p-1 shadow-sm step-wrapper mb-3 text-center'>
+            <div></div>
+            <p className='fs-4 mb-0'>X = 348 + 385k</p>
+            <div style={{ height: '350px' }}></div>
+          </div>
+          <h2 className='text-center mt-5'>Steps</h2>
+        </div>
+        <SolutionStep
+          stepNumber={1}
+          title='Product of the Moduli'
+          description='Calculate the product N of all the moduli.'
+          text='N=3×5×7=105'
+        />
       </div>
     </>
   );

@@ -90,3 +90,7 @@ input[type='number'] {
 .congruence-wrapper:nth-child(5) .congruence {
   border-left-color: var(--bs-gray-500);
 }
+
+.number-span {
+  width: 45px;
+}
