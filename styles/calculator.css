@@ -1,0 +1,96 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.form-label.btn {
+  min-width: 150px;
+}
+
+@media (min-width: 448px) {
+  .form-label.btn {
+    min-width: 200px;
+  }
+}
+
+@media (min-width: 579px) {
+  .form-label.btn {
+    min-width: 250px;
+  }
+}
+
+.btn-check:checked + .btn .circle-icon {
+  display: inline !important;
+}
+
+.btn-check + .btn {
+  border-color: var(--bs-border-color);
+  border-width: 1px;
+}
+
+.btn-check:checked ~ .btn {
+  border-color: var(--bs-primary);
+}
+
+.btn-check + .btn .circle-icon {
+  top: 10px;
+  right: 10px;
+  color: var(--bs-primary);
+}
+
+.btn-check:hover + .btn {
+  border-color: var(--bs-primary);
+}
+
+.btn-check:hover + .btn .circle-icon {
+  color: var(--bs-primary) !important;
+}
+
+.random-btn:hover {
+  background: var(--bs-danger) !important;
+}
+
+.congruence input {
+  border: 0;
+  border-bottom: 1px solid var(--bs-secondary-color);
+  max-width: 50px;
+  -moz-appearance: textfield;
+  appearance: none;
+}
+
+.congruence input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.congruence-wrapper .congruence {
+  border: 1px solid var(--bs-border-color);
+  border-left-width: 5px;
+  border-left-style: solid;
+  border-left-color: var(--bs-cyan);
+}
+
+.congruence-wrapper:nth-child(2) .congruence {
+  border-left-color: var(--bs-pink);
+}
+
+.congruence-wrapper:nth-child(3) .congruence {
+  border-left-color: var(--bs-teal);
+}
+
+.congruence-wrapper:nth-child(4) .congruence {
+  border-left-color: var(--bs-yellow);
+}
+
+.congruence-wrapper:nth-child(5) .congruence {
+  border-left-color: var(--bs-gray-500);
+}
+
+.number-span {
+  width: 45px;
+}
