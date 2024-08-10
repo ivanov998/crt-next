@@ -16,6 +16,10 @@ function App({ Component, pageProps }: AppProps) {
           name='viewport'
           content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
         />
+        <meta
+          name='description'
+          content='With our free online tool, you can effortlessly solve Chinese Remainder Theorem problems in no time.'
+        />
         <title>Chinese Remainder Theorem Calculator</title>
       </Head>
       <ThemeProvider>
