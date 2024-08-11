@@ -1,6 +1,14 @@
 import React from 'react';
 
-const CongruenceInput: React.FC = () => {
+interface ICongruenceInputProps {
+  remainder?: number;
+  modulo?: number;
+}
+
+const CongruenceInput: React.FC<ICongruenceInputProps> = ({
+  remainder,
+  modulo,
+}) => {
   return (
     <div className='congruence-wrapper mb-3'>
       <div className='congruence rounded-start shadow-sm d-inline-block py-1 ps-3 ps-lg-4 me-2 me-lg-4'>
@@ -10,12 +18,14 @@ const CongruenceInput: React.FC = () => {
           type='number'
           className='text-center fw-bold text-primary mx-2'
           placeholder='a'
+          value={remainder}
         />
         <span>(mod</span>
         <input
           type='number'
           className='text-center fw-bold text-primary mx-2'
           placeholder='n'
+          value={modulo}
         />
         <span>)</span>
         <span className='fs-6 text-danger ms-3 align-text-top'></span>

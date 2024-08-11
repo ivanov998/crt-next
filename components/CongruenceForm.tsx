@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CongruenceInput from './CongruenceInput';
 
+interface ICongruenceInput {
+  remainder?: number;
+  modulo?: number;
+}
+
 const CongruenceForm: React.FC = () => {
+  const [congruenceInputs, setCongruenceInput] = useState<ICongruenceInput[]>(
+    Array.from({ length: 3 }, () => ({
+      remainder: undefined,
+      modulo: undefined,
+    }))
+  );
+
+  const renderCongruences = () => {
+    return congruenceInputs.map(
+      (congruence: ICongruenceInput, index: number) => (
+        <CongruenceInput
+          key={index}
+          remainder={congruence.remainder}
+          modulo={congruence.modulo}
+        />
+      )
+    );
+  };
   return (
     <div className='fs-4 text-muted'>
-      <CongruenceInput />
-      <CongruenceInput />
-      <CongruenceInput />
+      {renderCongruences()}
       <button className='btn fw-bold w-100 mb-3 mt-2' type='button'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
