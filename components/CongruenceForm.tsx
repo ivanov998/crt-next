@@ -1,30 +1,57 @@
 import React, { useState } from 'react';
+import { ICongruenceInput } from '../types/CongruenceProps';
 import CongruenceInput from './CongruenceInput';
-
-interface ICongruenceInput {
-  remainder?: number;
-  modulo?: number;
-}
 
 const CongruenceForm: React.FC = () => {
   const [congruenceInputs, setCongruenceInput] = useState<ICongruenceInput[]>(
     Array.from({ length: 3 }, () => ({
-      remainder: undefined,
-      modulo: undefined,
+      remainder: '',
+      modulo: '',
     }))
   );
+
+  const setCongruencesValues = ({
+    index,
+    remainder,
+    modulo,
+  }: { index: number } & ICongruenceInput) => {
+    const values = [...congruenceInputs];
+
+    if (remainder !== undefined) {
+      values[index].remainder = remainder;
+    }
+
+    if (modulo !== undefined) {
+      values[index].modulo = modulo;
+    }
+
+    setCongruenceInput(values);
+  };
+
+  const removeCongruence = (index: number) => {
+    const values: ICongruenceInput[] = [...congruenceInputs];
+
+    if (values.length !== 1) {
+      values.splice(index, 1);
+      setCongruenceInput(values);
+    }
+  };
 
   const renderCongruences = () => {
     return congruenceInputs.map(
       (congruence: ICongruenceInput, index: number) => (
         <CongruenceInput
           key={index}
+          index={index}
           remainder={congruence.remainder}
           modulo={congruence.modulo}
+          handleValues={setCongruencesValues}
+          handleDelete={removeCongruence}
         />
       )
     );
   };
+
   return (
     <div className='fs-4 text-muted'>
       {renderCongruences()}
