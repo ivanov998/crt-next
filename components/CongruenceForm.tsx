@@ -28,6 +28,13 @@ const CongruenceForm: React.FC = () => {
     setCongruenceInput(values);
   };
 
+  const addNewCongruence = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    // Limited to 6 for now
+    if (congruenceInputs.length === 6) return;
+    setCongruenceInput([...congruenceInputs, { remainder: '', modulo: '' }]);
+  };
+
   const removeCongruence = (index: number) => {
     const values: ICongruenceInput[] = [...congruenceInputs];
 
@@ -55,7 +62,11 @@ const CongruenceForm: React.FC = () => {
   return (
     <div className='fs-4 text-muted'>
       {renderCongruences()}
-      <button className='btn fw-bold w-100 mb-3 mt-2' type='button'>
+      <button
+        className='btn fw-bold w-100 mb-3 mt-2'
+        type='button'
+        onClick={(e) => addNewCongruence(e)}
+      >
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='1em'

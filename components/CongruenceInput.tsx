@@ -34,6 +34,8 @@ const CongruenceInput: React.FC<ICongruenceInputProps> = ({
       <button
         onClick={() => handleDelete(index)}
         className='btn fs-4 text-danger'
+        type='button'
+        aria-label='Delete'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
