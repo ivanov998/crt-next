@@ -32,7 +32,7 @@ const SolutionStep: React.FC<ISolutionStepProps> = ({
             className='bi bi-chevron-down float-end'
           >
             <path
-              fill-rule='evenodd'
+              fillRule='evenodd'
               d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'
             ></path>
           </svg>
@@ -44,7 +44,7 @@ const SolutionStep: React.FC<ISolutionStepProps> = ({
         <p className='mt-3 fs-5 text-danger'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
-            enable-background='new 0 0 24 24'
+            enableBackground='new 0 0 24 24'
             height='1em'
             viewBox='0 0 24 24'
             width='1em'

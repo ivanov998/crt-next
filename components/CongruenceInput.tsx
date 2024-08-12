@@ -10,7 +10,7 @@ const CongruenceInput: React.FC<ICongruenceInputProps> = ({
 }) => {
   return (
     <div className='congruence-wrapper mb-3'>
-      <div className='congruence rounded-start shadow-sm d-inline-block py-1 ps-3 ps-lg-4 me-2 me-lg-4'>
+      <div className='congruence rounded-start shadow-sm d-inline-block py-1 ps-3 ps-lg-4 me-0 me-lg-2 pe-3'>
         <strong>x</strong>
         <span className='ms-3'>≡</span>
         <input

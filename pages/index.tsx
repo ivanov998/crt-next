@@ -28,11 +28,11 @@ const Home: NextPage = () => {
                 width='1em'
                 height='1em'
                 viewBox='0 0 24 24'
-                stroke-width='2'
+                strokeWidth='2'
                 stroke='currentColor'
                 fill='none'
-                stroke-linecap='round'
-                stroke-linejoin='round'
+                strokeLinecap='round'
+                strokeLinejoin='round'
                 className='icon icon-tabler icon-tabler-target-arrow main-icon fs-1 mb-2 text-muted'
               >
                 <path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
             <CalculatorOptionButton name='Practice mode' hashtag='practice'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                enable-background='new 0 0 24 24'
+                enableBackground='new 0 0 24 24'
                 height='1em'
                 viewBox='0 0 24 24'
                 width='1em'
@@ -70,11 +70,11 @@ const Home: NextPage = () => {
                 width='1em'
                 height='1em'
                 viewBox='0 0 24 24'
-                stroke-width='2'
+                strokeWidth='2'
                 stroke='currentColor'
                 fill='none'
-                stroke-linecap='round'
-                stroke-linejoin='round'
+                strokeLinecap='round'
+                strokeLinejoin='round'
                 className='icon icon-tabler icon-tabler-infinity main-icon fs-1 mb-2 text-muted'
               >
                 <path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
