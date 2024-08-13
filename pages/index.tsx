@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import CongruenceForm from '../components/CongruenceForm';
 import CalculatorOptionButton from '../components/CalculatorOptionButton';
 import SolutionStep from '../components/SolutionStep';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ICalculatorOptions } from '../types/CalculatorProps';
 
 const Home: NextPage = () => {
@@ -14,11 +14,32 @@ const Home: NextPage = () => {
       allSolutions: false,
     });
 
-  const handleCalculatorOptionClick = (option: keyof ICalculatorOptions) => {
+  useEffect(() => {
+    const loadedOptions: ICalculatorOptions = JSON.parse(
+      localStorage.getItem('optionPreferences') as string
+    ) as ICalculatorOptions;
+
+    if (!loadedOptions) return;
+
+    const { steps, solution, practice, allSolutions } = loadedOptions;
+
     setCalculatorOptions({
+      steps,
+      solution,
+      practice,
+      allSolutions,
+    });
+  }, []);
+
+  const handleCalculatorOptionClick = (option: keyof ICalculatorOptions) => {
+    const newOptions = {
       ...calculatorOptions,
       [option]: !calculatorOptions[option],
-    });
+    };
+
+    setCalculatorOptions(newOptions);
+
+    localStorage.setItem('optionPreferences', JSON.stringify(newOptions));
   };
 
   return (
