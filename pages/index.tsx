@@ -146,12 +146,10 @@ const Home: NextPage = () => {
         <div>
           <h2 className='text-center'>Solution</h2>
           <div className='p-1 shadow-sm step-wrapper mb-3 text-center'>
-            <div></div>
             <p className='fs-4 mb-0'>X = 348 + 385k</p>
-            <div style={{ height: '350px' }}></div>
           </div>
-          <h2 className='text-center mt-5'>Steps</h2>
         </div>
+        <h2 className='text-center mt-5'>Steps</h2>
         <SolutionStep
           stepNumber={1}
           title='Product of the Moduli'

@@ -1,12 +1,5 @@
 import React from 'react';
-
-interface ISolutionStepProps {
-  stepNumber: Number;
-  title: string;
-  description: string;
-  text: string;
-  commonFailure?: boolean;
-}
+import { ISolutionStepProps } from '../types/CalculatorProps';
 
 const SolutionStep: React.FC<ISolutionStepProps> = ({
   stepNumber,

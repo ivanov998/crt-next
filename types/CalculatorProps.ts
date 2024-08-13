@@ -14,3 +14,11 @@ export interface ICalculatorOptionButtonProps {
   option: keyof ICalculatorOptions;
   handleOnClick: (option: keyof ICalculatorOptions) => void;
 }
+
+export interface ISolutionStepProps {
+  stepNumber: Number;
+  title: string;
+  description: string;
+  text: string;
+  commonFailure?: boolean;
+}

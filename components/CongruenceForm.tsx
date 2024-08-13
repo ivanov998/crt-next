@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ICongruenceInput } from '../types/CongruenceProps';
+import { generateRandomCongruences } from '../utils/Calculations';
 import CongruenceInput from './CongruenceInput';
 
 const CongruenceForm: React.FC = () => {
@@ -44,6 +45,10 @@ const CongruenceForm: React.FC = () => {
     }
   };
 
+  const randomizeCongruences = () => {
+    setCongruenceInput(generateRandomCongruences(congruenceInputs.length));
+  };
+
   const renderCongruences = () => {
     return congruenceInputs.map(
       (congruence: ICongruenceInput, index: number) => (
@@ -83,6 +88,7 @@ const CongruenceForm: React.FC = () => {
         <button
           className='btn btn-secondary px-3 px-lg-4 py-2 shadow-sm rounded-0 fw-bold'
           type='button'
+          onClick={randomizeCongruences}
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
