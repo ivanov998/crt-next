@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { ICongruenceInput } from '../types/CongruenceProps';
-import { generateRandomCongruences } from '../utils/Calculations';
+import {
+  ICongruenceFormProps,
+  ICongruenceInput,
+} from '../types/CongruenceProps';
+import { generateRandomCongruences, solveCRT } from '../utils/Calculations';
 import CongruenceInput from './CongruenceInput';
 
-const CongruenceForm: React.FC = () => {
+const CongruenceForm: React.FC<ICongruenceFormProps> = ({ setResult }) => {
   const [congruenceInputs, setCongruenceInput] = useState<ICongruenceInput[]>(
     Array.from({ length: 3 }, () => ({
       remainder: '',
@@ -64,6 +67,12 @@ const CongruenceForm: React.FC = () => {
     );
   };
 
+  const handleResultSubmit = () => {
+    const result = solveCRT(congruenceInputs);
+
+    setResult(result);
+  };
+
   return (
     <div className='fs-4 text-muted'>
       {renderCongruences()}
@@ -110,6 +119,7 @@ const CongruenceForm: React.FC = () => {
         <button
           className='btn btn-primary px-3 px-lg-4 py-2 shadow-sm rounded-0 fw-bold'
           type='button'
+          onClick={handleResultSubmit}
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'

@@ -22,3 +22,7 @@ export interface ISolutionStepProps {
   text: string;
   commonFailure?: boolean;
 }
+
+export interface ISolutionResult {
+  areModuliCoprime: boolean;
+}

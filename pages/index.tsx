@@ -3,7 +3,7 @@ import CongruenceForm from '../components/CongruenceForm';
 import CalculatorOptionButton from '../components/CalculatorOptionButton';
 import SolutionStep from '../components/SolutionStep';
 import { useEffect, useState } from 'react';
-import { ICalculatorOptions } from '../types/CalculatorProps';
+import { ICalculatorOptions, ISolutionResult } from '../types/CalculatorProps';
 
 const Home: NextPage = () => {
   const [calculatorOptions, setCalculatorOptions] =
@@ -13,6 +13,8 @@ const Home: NextPage = () => {
       practice: false,
       allSolutions: false,
     });
+
+  const [result, setResult] = useState<ISolutionResult>();
 
   useEffect(() => {
     const loadedOptions: ICalculatorOptions = JSON.parse(
@@ -42,6 +44,8 @@ const Home: NextPage = () => {
     localStorage.setItem('optionPreferences', JSON.stringify(newOptions));
   };
 
+  const handleSetResult = (result: ISolutionResult): void => setResult(result);
+
   return (
     <>
       <p className='brief-description d-none d-lg-block px-5 rounded-3 fs-5 py-3 shadow-sm mx-3 mx-lg-5 text-'>
@@ -53,7 +57,7 @@ const Home: NextPage = () => {
       </p>
       <div className='row g-0 mt-md-3 mt-lg-5'>
         <div className='col-md-6 col-lg-5 col-xl-6 d-flex justify-content-center mb-3 mb-md-0'>
-          <CongruenceForm />
+          <CongruenceForm setResult={handleSetResult} />
         </div>
         <div className='col-md-6 col-lg-7 col-xl-6'>
           <div className='d-flex justify-content-evenly flex-wrap mt-3 mt-md-0'>

@@ -1,11 +1,22 @@
+import { ISolutionResult } from '../types/CalculatorProps';
 import { ICongruenceInput } from '../types/CongruenceProps';
 
 const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
 
 const areCoprime = (a: number, b: number): boolean => gcd(a, b) === 1;
 
-const generateRandomNumber = (max?: number) =>
+const generateRandomNumber = (max?: number): number =>
   Math.floor(Math.random() * (max || 20)) + 2;
+
+// This is a different than areCoprime; This function checks all the moduli
+export const areModuliCoprime = (congruences: ICongruenceInput[]): boolean =>
+  congruences.every((congruence, index) =>
+    congruences
+      .slice(index + 1)
+      .every((nextCongruence) =>
+        areCoprime(Number(congruence.modulo), Number(nextCongruence.modulo))
+      )
+  );
 
 export const generateRandomCongruences = (
   count: number
@@ -26,4 +37,10 @@ export const generateRandomCongruences = (
   }
 
   return congruences;
+};
+
+export const solveCRT = (congruences: ICongruenceInput[]): ISolutionResult => {
+  return {
+    areModuliCoprime: areModuliCoprime(congruences),
+  };
 };
