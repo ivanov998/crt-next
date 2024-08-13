@@ -4,7 +4,8 @@ const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
 
 const areCoprime = (a: number, b: number): boolean => gcd(a, b) === 1;
 
-const generateRandomNumber = () => Math.floor(Math.random() * 15) + 2;
+const generateRandomNumber = (max?: number) =>
+  Math.floor(Math.random() * (max || 20)) + 2;
 
 export const generateRandomCongruences = (
   count: number
@@ -12,7 +13,7 @@ export const generateRandomCongruences = (
   const congruences: ICongruenceInput[] = [];
 
   while (congruences.length < count) {
-    const candidate = generateRandomNumber();
+    const candidate = generateRandomNumber(count * 5);
 
     if (congruences.every((m) => areCoprime(candidate, Number(m.modulo)))) {
       const randomRemainder = generateRandomNumber();
