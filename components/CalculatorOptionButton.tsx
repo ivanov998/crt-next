@@ -15,7 +15,7 @@ const CalculatorOptionButton: React.FC<ICalculatorOptionButtonProps> = ({
         id={`btn-${option}`}
         className='btn-check'
         checked={selected}
-        onClick={() => handleOnClick(option)}
+        onChange={() => handleOnClick(option)}
       />
       <label
         className='form-label d-inline-flex flex-column justify-content-center align-items-center btn mx-sm-2 py-lg-4 position-relative shadow-sm mb-3'
