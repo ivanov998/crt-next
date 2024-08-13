@@ -2,8 +2,25 @@ import type { NextPage } from 'next';
 import CongruenceForm from '../components/CongruenceForm';
 import CalculatorOptionButton from '../components/CalculatorOptionButton';
 import SolutionStep from '../components/SolutionStep';
+import { useState } from 'react';
+import { ICalculatorOptions } from '../types/CalculatorProps';
 
 const Home: NextPage = () => {
+  const [calculatorOptions, setCalculatorOptions] =
+    useState<ICalculatorOptions>({
+      steps: true,
+      solution: true,
+      practice: false,
+      allSolutions: false,
+    });
+
+  const handleCalculatorOptionClick = (option: keyof ICalculatorOptions) => {
+    setCalculatorOptions({
+      ...calculatorOptions,
+      [option]: !calculatorOptions[option],
+    });
+  };
+
   return (
     <>
       <p className='brief-description d-none d-lg-block px-5 rounded-3 fs-5 py-3 shadow-sm mx-3 mx-lg-5 text-'>
@@ -19,10 +36,20 @@ const Home: NextPage = () => {
         </div>
         <div className='col-md-6 col-lg-7 col-xl-6'>
           <div className='d-flex justify-content-evenly flex-wrap mt-3 mt-md-0'>
-            <CalculatorOptionButton name='Explain steps' hashtag='steps'>
+            <CalculatorOptionButton
+              name='Explain steps'
+              selected={calculatorOptions.steps}
+              option={'steps'}
+              handleOnClick={handleCalculatorOptionClick}
+            >
               <i className='la la-lightbulb-o main-icon fs-1 mb-2 text-muted'></i>
             </CalculatorOptionButton>
-            <CalculatorOptionButton name='Solution first' hashtag='solution'>
+            <CalculatorOptionButton
+              name='Solution first'
+              selected={calculatorOptions.solution}
+              option='solution'
+              handleOnClick={handleCalculatorOptionClick}
+            >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 width='1em'
@@ -43,7 +70,12 @@ const Home: NextPage = () => {
                 <path d='M15 9l-3 3'></path>
               </svg>
             </CalculatorOptionButton>
-            <CalculatorOptionButton name='Practice mode' hashtag='practice'>
+            <CalculatorOptionButton
+              name='Practice mode'
+              selected={calculatorOptions.practice}
+              option={'practice'}
+              handleOnClick={handleCalculatorOptionClick}
+            >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 enableBackground='new 0 0 24 24'
@@ -64,7 +96,12 @@ const Home: NextPage = () => {
                 </g>
               </svg>
             </CalculatorOptionButton>
-            <CalculatorOptionButton name='All solutions' hashtag='allsolutions'>
+            <CalculatorOptionButton
+              name='All solutions'
+              selected={calculatorOptions.allSolutions}
+              option={'allSolutions'}
+              handleOnClick={handleCalculatorOptionClick}
+            >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 width='1em'
