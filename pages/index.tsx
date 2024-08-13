@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import CongruenceForm from '../components/CongruenceForm';
 import CalculatorOptionButton from '../components/CalculatorOptionButton';
 import SolutionStep from '../components/SolutionStep';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ICalculatorOptions, ISolutionResult } from '../types/CalculatorProps';
 
 const Home: NextPage = () => {
@@ -14,7 +14,19 @@ const Home: NextPage = () => {
       allSolutions: false,
     });
 
+  // Changed only upon solve button submission in order to prevent unwanted behaviour when changing the options after submission
+  const [bufferedCalculatorOptions, setBufferedCalculatorOptions] =
+    useState<ICalculatorOptions>({ ...calculatorOptions });
+
   const [result, setResult] = useState<ISolutionResult>();
+
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (resultRef.current) {
+      resultRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [result]);
 
   useEffect(() => {
     const loadedOptions: ICalculatorOptions = JSON.parse(
@@ -44,7 +56,10 @@ const Home: NextPage = () => {
     localStorage.setItem('optionPreferences', JSON.stringify(newOptions));
   };
 
-  const handleSetResult = (result: ISolutionResult): void => setResult(result);
+  const handleSetResult = (result: ISolutionResult): void => {
+    setBufferedCalculatorOptions({ ...calculatorOptions });
+    setResult(result);
+  };
 
   return (
     <>
@@ -146,21 +161,31 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-      <div className='px-lg-5 mt-3 mt-lg-5 fw-bold'>
-        <div>
-          <h2 className='text-center'>Solution</h2>
-          <div className='p-1 shadow-sm step-wrapper mb-3 text-center'>
-            <p className='fs-4 mb-0'>X = 348 + 385k</p>
+      {result && (
+        <div className='px-lg-5 mt-3 mt-lg-5 fw-bold' ref={resultRef}>
+          <div>
+            <h2 className='text-center'>Solution</h2>
+            <div className='p-1 shadow-sm step-wrapper mb-3 text-center'>
+              <p className='fs-4 mb-0'>
+                {result.areModuliCoprime
+                  ? 'X = 348 + 385k'
+                  : 'There is no solution, because the moduli are not pairwise coprime.'}
+              </p>
+            </div>
           </div>
+          {result.areModuliCoprime && bufferedCalculatorOptions.steps && (
+            <>
+              <h2 className='text-center mt-5'>Steps</h2>
+              <SolutionStep
+                stepNumber={1}
+                title='Product of the Moduli'
+                description='Calculate the product N of all the moduli.'
+                text='N=3×5×7=105'
+              />
+            </>
+          )}
         </div>
-        <h2 className='text-center mt-5'>Steps</h2>
-        <SolutionStep
-          stepNumber={1}
-          title='Product of the Moduli'
-          description='Calculate the product N of all the moduli.'
-          text='N=3×5×7=105'
-        />
-      </div>
+      )}
     </>
   );
 };
