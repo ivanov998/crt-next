@@ -24,7 +24,7 @@ export const generateRandomCongruences = (
   const congruences: ICongruenceInput[] = [];
 
   while (congruences.length < count) {
-    const candidate = generateRandomNumber(count * 5);
+    const candidate = generateRandomNumber(count * 3);
 
     if (congruences.every((m) => areCoprime(candidate, Number(m.modulo)))) {
       const randomRemainder = generateRandomNumber();
@@ -40,7 +40,35 @@ export const generateRandomCongruences = (
 };
 
 export const solveCRT = (congruences: ICongruenceInput[]): ISolutionResult => {
+  const prod: number = congruences.reduce(
+    (acc: number, val) => acc * Number(val.modulo),
+    1
+  );
+
+  const result = (
+    congruences.reduce((sum, congruence, index) => {
+      const p = prod / Number(congruence.modulo);
+      return (
+        sum +
+        Number(congruences[index].remainder) *
+          modularMultiplicativeInverse(p, Number(congruence.modulo)) *
+          p
+      );
+    }, 0) % prod
+  ).toString();
+
   return {
     areModuliCoprime: areModuliCoprime(congruences),
+    result,
   };
+};
+
+const modularMultiplicativeInverse = (a: number, modulus: number) => {
+  const b = a % modulus;
+
+  for (let hipothesis = 1; hipothesis <= modulus; hipothesis++) {
+    if ((b * hipothesis) % modulus === 1) return hipothesis;
+  }
+
+  return 1;
 };

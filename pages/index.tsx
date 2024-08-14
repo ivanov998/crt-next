@@ -61,6 +61,21 @@ const Home: NextPage = () => {
     setResult(result);
   };
 
+  const renderSolution = (result: ISolutionResult) => {
+    return (
+      <div>
+        <h2 className='text-center'>Solution</h2>
+        <div className='p-1 shadow-sm step-wrapper mb-3 text-center'>
+          <p className='fs-4 mb-0'>
+            {result.areModuliCoprime
+              ? `X = ${result.result}`
+              : 'There is no solution, because the moduli are not pairwise coprime.'}
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <p className='brief-description d-none d-lg-block px-5 rounded-3 fs-5 py-3 shadow-sm mx-3 mx-lg-5 text-'>
@@ -163,16 +178,7 @@ const Home: NextPage = () => {
       </div>
       {result && (
         <div className='px-lg-5 mt-3 mt-lg-5 fw-bold' ref={resultRef}>
-          <div>
-            <h2 className='text-center'>Solution</h2>
-            <div className='p-1 shadow-sm step-wrapper mb-3 text-center'>
-              <p className='fs-4 mb-0'>
-                {result.areModuliCoprime
-                  ? 'X = 348 + 385k'
-                  : 'There is no solution, because the moduli are not pairwise coprime.'}
-              </p>
-            </div>
-          </div>
+          {bufferedCalculatorOptions.solution && renderSolution(result)}
           {result.areModuliCoprime && bufferedCalculatorOptions.steps && (
             <>
               <h2 className='text-center mt-5'>Steps</h2>
@@ -182,6 +188,7 @@ const Home: NextPage = () => {
                 description='Calculate the product N of all the moduli.'
                 text='N=3×5×7=105'
               />
+              {!bufferedCalculatorOptions.solution && renderSolution(result)}
             </>
           )}
         </div>

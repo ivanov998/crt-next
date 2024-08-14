@@ -25,4 +25,5 @@ export interface ISolutionStepProps {
 
 export interface ISolutionResult {
   areModuliCoprime: boolean;
+  result: string;
 }
