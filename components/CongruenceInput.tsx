@@ -19,6 +19,7 @@ const CongruenceInput: React.FC<ICongruenceInputProps> = ({
           placeholder='a'
           value={remainder}
           onChange={(e) => handleValues({ index, remainder: e.target.value })}
+          onFocus={(e) => e.target.select()}
         />
         <span>(mod</span>
         <input
@@ -27,6 +28,7 @@ const CongruenceInput: React.FC<ICongruenceInputProps> = ({
           placeholder='n'
           value={modulo}
           onChange={(e) => handleValues({ index, modulo: e.target.value })}
+          onFocus={(e) => e.target.select()}
         />
         <span>)</span>
       </div>

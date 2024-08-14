@@ -66,7 +66,7 @@ const Home: NextPage = () => {
       <div>
         <h2 className='text-center'>Solution</h2>
         <div className='p-1 shadow-sm step-wrapper mb-3 text-center'>
-          <p className='fs-4 mb-0'>
+          <p className='fs-3 fw-bolder mb-0'>
             {result.areModuliCoprime
               ? `X = ${result.result}`
               : 'There is no solution, because the moduli are not pairwise coprime.'}
