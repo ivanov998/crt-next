@@ -7,6 +7,11 @@ export interface ICalculatorOptions {
   allSolutions: boolean;
 }
 
+export interface ICalculatorOptionsProps {
+  calculatorOptions: ICalculatorOptions;
+  handleOnClick: (option: keyof ICalculatorOptions) => void;
+}
+
 export interface ICalculatorOptionButtonProps {
   name: string;
   children: ReactNode;

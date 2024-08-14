@@ -131,7 +131,7 @@ export const solveCRT = (congruences: ICongruenceInput[]): ISolutionResult => {
     {
       title: 'Calculate the Solution',
       description: 'Substitute the values',
-      text: `X = ${congruences
+      text: `x = ${congruences
         .map(
           (congruence) =>
             `(${congruence.remainder} x ${
@@ -142,11 +142,10 @@ export const solveCRT = (congruences: ICongruenceInput[]): ISolutionResult => {
             )})`
         )
         .join(
-          ' + '
-        )} = ${resultSum}\nx = ${resultSum} (mod ${prod})\nAfter modular reduction\nx = ${
+          ' +\n '
+        )}\nx = ${resultSum}\nx = ${resultSum} (mod ${prod})\nAfter modular reduction\nx = ${
         resultSum % prod
       } (mod ${prod})`,
-      failureText: 'Common step of failure',
     },
   ];
 
