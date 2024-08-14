@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import CongruenceForm from '../components/CongruenceForm';
-import CalculatorOptionButton from '../components/CalculatorOptionButton';
 import SolutionStep from '../components/SolutionStep';
 import { useEffect, useRef, useState } from 'react';
 import { ICalculatorOptions, ISolutionResult } from '../types/CalculatorProps';
@@ -113,10 +112,9 @@ const Home: NextPage = () => {
                     failureText={item.failureText}
                   />
                 ))}
-
-              {!bufferedCalculatorOptions.solution && renderSolution(result)}
             </>
           )}
+          {!bufferedCalculatorOptions.solution && renderSolution(result)}
         </div>
       )}
     </>

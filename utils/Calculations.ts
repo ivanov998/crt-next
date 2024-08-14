@@ -1,4 +1,8 @@
-import { ISolutionResult, ISolutionStep } from '../types/CalculatorProps';
+import {
+  ICongruenceExtended,
+  ISolutionResult,
+  ISolutionStep,
+} from '../types/CalculatorProps';
 import { ICongruenceInput } from '../types/CongruenceProps';
 
 const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
@@ -7,16 +11,6 @@ const areCoprime = (a: number, b: number): boolean => gcd(a, b) === 1;
 
 const generateRandomNumber = (max?: number): number =>
   Math.floor(Math.random() * (max || 20)) + 2;
-
-// This is a different than areCoprime; This function checks all the moduli
-export const areModuliCoprime = (congruences: ICongruenceInput[]): boolean =>
-  congruences.every((congruence, index) =>
-    congruences
-      .slice(index + 1)
-      .every((nextCongruence) =>
-        areCoprime(Number(congruence.modulo), Number(nextCongruence.modulo))
-      )
-  );
 
 export const generateRandomCongruences = (
   count: number
@@ -39,7 +33,46 @@ export const generateRandomCongruences = (
   return congruences;
 };
 
-export const solveCRT = (congruences: ICongruenceInput[]): ISolutionResult => {
+// This is a different than areCoprime; This function checks all the moduli
+const areModuliCoprime = (congruences: ICongruenceExtended[]): boolean =>
+  congruences.every((congruence, index) =>
+    congruences
+      .slice(index + 1)
+      .every((nextCongruence) =>
+        areCoprime(congruence.modulo, nextCongruence.modulo)
+      )
+  );
+
+const modularMultiplicativeInverse = (a: number, modulus: number) => {
+  const b = a % modulus;
+
+  for (let hipothesis = 1; hipothesis <= modulus; hipothesis++) {
+    if ((b * hipothesis) % modulus === 1) return hipothesis;
+  }
+
+  return 1;
+};
+
+export const solveCRT = (input: ICongruenceInput[]): ISolutionResult => {
+  // Product of all the moduli
+  const prod: number = input.reduce(
+    (acc: number, val) => acc * Number(val.modulo),
+    1
+  );
+
+  // Transform the congruences to their extended variant in order to prevent repetitive computing of values
+  const congruences: ICongruenceExtended[] = input.map(
+    (congruence): ICongruenceExtended => ({
+      remainder: Number(congruence.remainder),
+      modulo: Number(congruence.modulo),
+      partialProduct: prod / Number(congruence.modulo),
+      multiplicativeInverse: modularMultiplicativeInverse(
+        prod / Number(congruence.modulo),
+        Number(congruence.modulo)
+      ),
+    })
+  );
+
   const coprime = areModuliCoprime(congruences);
 
   const coprimalityCheckStep = {
@@ -52,8 +85,8 @@ export const solveCRT = (congruences: ICongruenceInput[]): ISolutionResult => {
           .map(
             (nextCongruence) =>
               `gcd (${congruence.modulo}, ${nextCongruence.modulo}) = ${gcd(
-                Number(congruence.modulo),
-                Number(nextCongruence.modulo)
+                congruence.modulo,
+                nextCongruence.modulo
               )}`
           )
           .join('\n')
@@ -75,26 +108,17 @@ export const solveCRT = (congruences: ICongruenceInput[]): ISolutionResult => {
     };
   }
 
-  // Product of all the moduli
-  const prod: number = congruences.reduce(
-    (acc: number, val) => acc * Number(val.modulo),
-    1
-  );
-
   const resultSum = congruences.reduce((sum, congruence, index) => {
-    const p = prod / Number(congruence.modulo);
+    const p = prod / congruence.modulo;
     return (
       sum +
       Number(congruences[index].remainder) *
-        modularMultiplicativeInverse(p, Number(congruence.modulo)) *
+        modularMultiplicativeInverse(p, congruence.modulo) *
         p
     );
   }, 0);
 
-  const result = `${(resultSum % prod).toString()} + ${prod}k`;
-
   const steps: ISolutionStep[] = [
-    coprimalityCheckStep,
     {
       title: 'Product of the Moduli',
       description: 'Calculate the product N of all the moduli.',
@@ -109,7 +133,7 @@ export const solveCRT = (congruences: ICongruenceInput[]): ISolutionResult => {
         .map(
           (congruence, index) =>
             `M${index + 1} = ${prod} / ${congruence.modulo} = ${
-              prod / Number(congruence.modulo)
+              congruence.partialProduct
             }`
         )
         .join('\n'),
@@ -120,10 +144,7 @@ export const solveCRT = (congruences: ICongruenceInput[]): ISolutionResult => {
       text: congruences
         .map(
           (congruence, index) =>
-            `Y${index} = ${modularMultiplicativeInverse(
-              prod / Number(congruence.modulo),
-              Number(congruence.modulo)
-            )}`
+            `Y${index} = ${congruence.multiplicativeInverse}`
         )
         .join('\n'),
       failureText: 'Common step of failure',
@@ -134,12 +155,7 @@ export const solveCRT = (congruences: ICongruenceInput[]): ISolutionResult => {
       text: `x = ${congruences
         .map(
           (congruence) =>
-            `(${congruence.remainder} x ${
-              prod / Number(congruence.modulo)
-            } x ${modularMultiplicativeInverse(
-              prod / Number(congruence.modulo),
-              Number(congruence.modulo)
-            )})`
+            `(${congruence.remainder} x ${congruence.partialProduct} x ${congruence.multiplicativeInverse})`
         )
         .join(
           ' +\n '
@@ -149,19 +165,15 @@ export const solveCRT = (congruences: ICongruenceInput[]): ISolutionResult => {
     },
   ];
 
+  if (congruences.length > 1) {
+    steps.unshift(coprimalityCheckStep);
+  }
+
+  const result = `${(resultSum % prod).toString()} + ${prod}k`;
+
   return {
     areModuliCoprime: true,
     result,
     steps,
   };
-};
-
-const modularMultiplicativeInverse = (a: number, modulus: number) => {
-  const b = a % modulus;
-
-  for (let hipothesis = 1; hipothesis <= modulus; hipothesis++) {
-    if ((b * hipothesis) % modulus === 1) return hipothesis;
-  }
-
-  return 1;
 };

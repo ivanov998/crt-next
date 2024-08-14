@@ -36,3 +36,10 @@ export interface ISolutionResult {
   result?: string;
   steps?: ISolutionStep[];
 }
+
+export interface ICongruenceExtended {
+  remainder: number;
+  modulo: number;
+  partialProduct: number;
+  multiplicativeInverse: number;
+}
