@@ -41,7 +41,7 @@ const SolutionStep: React.FC<ISolutionStepProps> = ({
         ))}
       </p>
       {failureText && (
-        <p className='mt-3 fs-5 text-danger'>
+        <p className='mt-3 fw-bolder fs-5 text-danger'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             enableBackground='new 0 0 24 24'

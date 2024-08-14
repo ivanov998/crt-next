@@ -75,22 +75,23 @@ export const solveCRT = (congruences: ICongruenceInput[]): ISolutionResult => {
     };
   }
 
+  // Product of all the moduli
   const prod: number = congruences.reduce(
     (acc: number, val) => acc * Number(val.modulo),
     1
   );
 
-  const result = (
-    congruences.reduce((sum, congruence, index) => {
-      const p = prod / Number(congruence.modulo);
-      return (
-        sum +
-        Number(congruences[index].remainder) *
-          modularMultiplicativeInverse(p, Number(congruence.modulo)) *
-          p
-      );
-    }, 0) % prod
-  ).toString();
+  const resultSum = congruences.reduce((sum, congruence, index) => {
+    const p = prod / Number(congruence.modulo);
+    return (
+      sum +
+      Number(congruences[index].remainder) *
+        modularMultiplicativeInverse(p, Number(congruence.modulo)) *
+        p
+    );
+  }, 0);
+
+  const result = `${(resultSum % prod).toString()} + ${prod}k`;
 
   const steps: ISolutionStep[] = [
     coprimalityCheckStep,
@@ -99,10 +100,53 @@ export const solveCRT = (congruences: ICongruenceInput[]): ISolutionResult => {
       description: 'Calculate the product N of all the moduli.',
       text: `M = ${congruences
         .map((congruence) => congruence.modulo)
-        .join(' x ')} = ${congruences.reduce(
-        (acc, congruence) => acc * Number(congruence.modulo),
-        1
-      )}`,
+        .join(' x ')} = ${prod}`,
+    },
+    {
+      title: 'Individual Mi of the Moduli',
+      description: 'For each congruence, compute Mi',
+      text: congruences
+        .map(
+          (congruence, index) =>
+            `M${index + 1} = ${prod} / ${congruence.modulo} = ${
+              prod / Number(congruence.modulo)
+            }`
+        )
+        .join('\n'),
+    },
+    {
+      title: 'Find Modular Inverses',
+      description: 'For each congruence, find the inversed value',
+      text: congruences
+        .map(
+          (congruence, index) =>
+            `Y${index} = ${modularMultiplicativeInverse(
+              prod / Number(congruence.modulo),
+              Number(congruence.modulo)
+            )}`
+        )
+        .join('\n'),
+      failureText: 'Common step of failure',
+    },
+    {
+      title: 'Calculate the Solution',
+      description: 'Substitute the values',
+      text: `X = ${congruences
+        .map(
+          (congruence) =>
+            `(${congruence.remainder} x ${
+              prod / Number(congruence.modulo)
+            } x ${modularMultiplicativeInverse(
+              prod / Number(congruence.modulo),
+              Number(congruence.modulo)
+            )})`
+        )
+        .join(
+          ' + '
+        )} = ${resultSum}\nx = ${resultSum} (mod ${prod})\nAfter modular reduction\nx = ${
+        resultSum % prod
+      } (mod ${prod})`,
+      failureText: 'Common step of failure',
     },
   ];
 
