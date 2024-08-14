@@ -6,7 +6,7 @@ const SolutionStep: React.FC<ISolutionStepProps> = ({
   title,
   description,
   text,
-  commonFailure,
+  failureText,
 }) => {
   return (
     <div className='p-3 shadow-sm step-wrapper mb-3'>
@@ -32,8 +32,15 @@ const SolutionStep: React.FC<ISolutionStepProps> = ({
         </h3>
         <p className='mt-3 fs-5 text-muted fw-semibold'>{description}</p>
       </div>
-      <p className='ms-3 fs-4'>{text}</p>
-      {commonFailure && (
+      <p className='ms-3 fs-4'>
+        {text.split('\n').map((line, index) => (
+          <React.Fragment key={index}>
+            {line}
+            <br />
+          </React.Fragment>
+        ))}
+      </p>
+      {failureText && (
         <p className='mt-3 fs-5 text-danger'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -57,7 +64,7 @@ const SolutionStep: React.FC<ISolutionStepProps> = ({
               </g>
             </g>
           </svg>
-          Common step of failure
+          {failureText}
         </p>
       )}
     </div>

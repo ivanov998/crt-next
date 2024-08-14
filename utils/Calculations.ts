@@ -1,4 +1,4 @@
-import { ISolutionResult } from '../types/CalculatorProps';
+import { ISolutionResult, ISolutionStep } from '../types/CalculatorProps';
 import { ICongruenceInput } from '../types/CongruenceProps';
 
 const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
@@ -40,6 +40,41 @@ export const generateRandomCongruences = (
 };
 
 export const solveCRT = (congruences: ICongruenceInput[]): ISolutionResult => {
+  const coprime = areModuliCoprime(congruences);
+
+  const coprimalityCheckStep = {
+    title: 'Check if the Moduli are Pairwise Coprime',
+    description: "Check if each pair of gcd's equals 1",
+    text: congruences
+      .map((congruence, index) =>
+        congruences
+          .slice(index + 1)
+          .map(
+            (nextCongruence) =>
+              `gcd (${congruence.modulo}, ${nextCongruence.modulo}) = ${gcd(
+                Number(congruence.modulo),
+                Number(nextCongruence.modulo)
+              )}`
+          )
+          .join('\n')
+      )
+      .join('\n')
+      .trim(),
+  };
+
+  if (!coprime) {
+    return {
+      areModuliCoprime: false,
+      steps: [
+        {
+          ...coprimalityCheckStep,
+          failureText:
+            'At least one pair of the moduli fails the coprimality check',
+        },
+      ],
+    };
+  }
+
   const prod: number = congruences.reduce(
     (acc: number, val) => acc * Number(val.modulo),
     1
@@ -57,9 +92,24 @@ export const solveCRT = (congruences: ICongruenceInput[]): ISolutionResult => {
     }, 0) % prod
   ).toString();
 
+  const steps: ISolutionStep[] = [
+    coprimalityCheckStep,
+    {
+      title: 'Product of the Moduli',
+      description: 'Calculate the product N of all the moduli.',
+      text: `M = ${congruences
+        .map((congruence) => congruence.modulo)
+        .join(' x ')} = ${congruences.reduce(
+        (acc, congruence) => acc * Number(congruence.modulo),
+        1
+      )}`,
+    },
+  ];
+
   return {
-    areModuliCoprime: areModuliCoprime(congruences),
+    areModuliCoprime: true,
     result,
+    steps,
   };
 };
 

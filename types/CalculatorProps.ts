@@ -15,15 +15,19 @@ export interface ICalculatorOptionButtonProps {
   handleOnClick: (option: keyof ICalculatorOptions) => void;
 }
 
-export interface ISolutionStepProps {
-  stepNumber: Number;
+export interface ISolutionStep {
   title: string;
   description: string;
   text: string;
-  commonFailure?: boolean;
+  failureText?: string;
+}
+
+export interface ISolutionStepProps extends ISolutionStep {
+  stepNumber: Number;
 }
 
 export interface ISolutionResult {
   areModuliCoprime: boolean;
-  result: string;
+  result?: string;
+  steps?: ISolutionStep[];
 }

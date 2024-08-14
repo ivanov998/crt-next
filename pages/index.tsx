@@ -179,15 +179,20 @@ const Home: NextPage = () => {
       {result && (
         <div className='px-lg-5 mt-3 mt-lg-5 fw-bold' ref={resultRef}>
           {bufferedCalculatorOptions.solution && renderSolution(result)}
-          {result.areModuliCoprime && bufferedCalculatorOptions.steps && (
+          {bufferedCalculatorOptions.steps && (
             <>
               <h2 className='text-center mt-5'>Steps</h2>
-              <SolutionStep
-                stepNumber={1}
-                title='Product of the Moduli'
-                description='Calculate the product N of all the moduli.'
-                text='N=3×5×7=105'
-              />
+              {result.steps &&
+                result.steps.map((item, index) => (
+                  <SolutionStep
+                    stepNumber={index + 1}
+                    title={item.title}
+                    description={item.description}
+                    text={item.text}
+                    failureText={item.failureText}
+                  />
+                ))}
+
               {!bufferedCalculatorOptions.solution && renderSolution(result)}
             </>
           )}
