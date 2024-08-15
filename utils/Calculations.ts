@@ -109,12 +109,14 @@ export const solveCRT = (input: ICongruenceInput[]): ISolutionResult => {
   }
 
   const resultSum = congruences.reduce((sum, congruence, index) => {
-    const p = prod / congruence.modulo;
     return (
       sum +
-      Number(congruences[index].remainder) *
-        modularMultiplicativeInverse(p, congruence.modulo) *
-        p
+      congruences[index].remainder *
+        modularMultiplicativeInverse(
+          congruence.partialProduct,
+          congruence.modulo
+        ) *
+        congruence.partialProduct
     );
   }, 0);
 
