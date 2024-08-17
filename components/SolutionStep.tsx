@@ -32,14 +32,12 @@ const SolutionStep: React.FC<ISolutionStepProps> = ({
         </h3>
         <p className='mt-3 fs-5 text-muted fw-semibold'>{description}</p>
       </div>
-      <p className='ms-3 fs-4'>
-        {text.split('\n').map((line, index) => (
-          <React.Fragment key={index}>
-            {line}
-            <br />
-          </React.Fragment>
-        ))}
-      </p>
+      <p
+        className='ms-3 fs-4'
+        dangerouslySetInnerHTML={{
+          __html: text.replace(/\n/g, '<br />'),
+        }}
+      ></p>
       {failureText && (
         <p className='mt-3 fw-bolder fs-5 text-danger'>
           <svg
