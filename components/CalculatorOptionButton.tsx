@@ -1,24 +1,27 @@
-import React, { ReactNode } from 'react';
-
-interface ICalculatorOptionButtonProps {
-  name: string;
-  hashtag: string;
-  children: ReactNode;
-}
+import React from 'react';
+import { ICalculatorOptionButtonProps } from '../types/CalculatorProps';
 
 const CalculatorOptionButton: React.FC<ICalculatorOptionButtonProps> = ({
   name,
-  hashtag,
   children,
+  selected,
+  option,
+  handleOnClick,
 }) => {
   return (
     <div className='d-inline-block'>
-      <input type='checkbox' id={`btn-${hashtag}`} className='btn-check' />
+      <input
+        type='checkbox'
+        id={`btn-${option}`}
+        className='btn-check'
+        checked={selected}
+        onChange={() => handleOnClick(option)}
+      />
       <label
         className='form-label d-inline-flex flex-column justify-content-center align-items-center btn mx-sm-2 py-lg-4 position-relative shadow-sm mb-3'
         data-bs-toggle='tooltip'
         data-bss-tooltip=''
-        htmlFor={`btn-${hashtag}`}
+        htmlFor={`btn-${option}`}
         title='Get a comprehensive breakdown of each step in solving CRT problems'
       >
         <svg
@@ -44,7 +47,7 @@ const CalculatorOptionButton: React.FC<ICalculatorOptionButtonProps> = ({
         {children}
         <span className='fw-bold'>{name}</span>
         <span className='text-muted'>
-          #{hashtag}&nbsp;
+          #{option}&nbsp;
           <a
             className='text-decoration-none text-primary'
             href='#steps'

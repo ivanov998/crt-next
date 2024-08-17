@@ -1,19 +1,12 @@
 import React from 'react';
-
-interface ISolutionStepProps {
-  stepNumber: Number;
-  title: string;
-  description: string;
-  text: string;
-  commonFailure?: boolean;
-}
+import { ISolutionStepProps } from '../types/CalculatorProps';
 
 const SolutionStep: React.FC<ISolutionStepProps> = ({
   stepNumber,
   title,
   description,
   text,
-  commonFailure,
+  failureText,
 }) => {
   return (
     <div className='p-3 shadow-sm step-wrapper mb-3'>
@@ -32,19 +25,24 @@ const SolutionStep: React.FC<ISolutionStepProps> = ({
             className='bi bi-chevron-down float-end'
           >
             <path
-              fill-rule='evenodd'
+              fillRule='evenodd'
               d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'
             ></path>
           </svg>
         </h3>
         <p className='mt-3 fs-5 text-muted fw-semibold'>{description}</p>
       </div>
-      <p className='ms-3 fs-4'>{text}</p>
-      {commonFailure && (
-        <p className='mt-3 fs-5 text-danger'>
+      <p
+        className='ms-3 fs-4'
+        dangerouslySetInnerHTML={{
+          __html: text.replace(/\n/g, '<br />'),
+        }}
+      ></p>
+      {failureText && (
+        <p className='mt-3 fw-bolder fs-5 text-danger'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
-            enable-background='new 0 0 24 24'
+            enableBackground='new 0 0 24 24'
             height='1em'
             viewBox='0 0 24 24'
             width='1em'
@@ -64,7 +62,7 @@ const SolutionStep: React.FC<ISolutionStepProps> = ({
               </g>
             </g>
           </svg>
-          Common step of failure
+          {failureText}
         </p>
       )}
     </div>

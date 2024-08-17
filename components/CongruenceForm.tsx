@@ -1,13 +1,86 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {
+  ICongruenceFormProps,
+  ICongruenceInput,
+} from '../types/CongruenceProps';
+import { generateRandomCongruences, solveCRT } from '../utils/Calculations';
 import CongruenceInput from './CongruenceInput';
 
-const CongruenceForm: React.FC = () => {
+const CongruenceForm: React.FC<ICongruenceFormProps> = ({ setResult }) => {
+  const [congruenceInputs, setCongruenceInput] = useState<ICongruenceInput[]>(
+    Array.from({ length: 3 }, () => ({
+      remainder: '',
+      modulo: '',
+    }))
+  );
+
+  const setCongruencesValues = ({
+    index,
+    remainder,
+    modulo,
+  }: { index: number } & ICongruenceInput) => {
+    const values = [...congruenceInputs];
+
+    if (remainder !== undefined) {
+      values[index].remainder = remainder;
+    }
+
+    if (modulo !== undefined) {
+      values[index].modulo = modulo;
+    }
+
+    setCongruenceInput(values);
+  };
+
+  const addNewCongruence = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    // Limited to 6 for now
+    if (congruenceInputs.length === 6) return;
+    setCongruenceInput([...congruenceInputs, { remainder: '', modulo: '' }]);
+  };
+
+  const removeCongruence = (index: number) => {
+    const values: ICongruenceInput[] = [...congruenceInputs];
+
+    if (values.length !== 1) {
+      values.splice(index, 1);
+      setCongruenceInput(values);
+    }
+  };
+
+  const randomizeCongruences = () => {
+    setCongruenceInput(generateRandomCongruences(congruenceInputs.length));
+  };
+
+  const renderCongruences = () => {
+    return congruenceInputs.map(
+      (congruence: ICongruenceInput, index: number) => (
+        <CongruenceInput
+          key={index}
+          index={index}
+          remainder={congruence.remainder}
+          modulo={congruence.modulo}
+          handleValues={setCongruencesValues}
+          handleDelete={removeCongruence}
+        />
+      )
+    );
+  };
+
+  const handleResultSubmit = () => {
+    const result = solveCRT(congruenceInputs);
+
+    setResult(result);
+  };
+
   return (
     <div className='fs-4 text-muted'>
-      <CongruenceInput />
-      <CongruenceInput />
-      <CongruenceInput />
-      <button className='btn fw-bold w-100 mb-3 mt-2' type='button'>
+      {renderCongruences()}
+      <button
+        className='btn fw-bold w-100 mb-3 mt-2'
+        type='button'
+        onClick={(e) => addNewCongruence(e)}
+      >
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='1em'
@@ -24,17 +97,18 @@ const CongruenceForm: React.FC = () => {
         <button
           className='btn btn-secondary px-3 px-lg-4 py-2 shadow-sm rounded-0 fw-bold'
           type='button'
+          onClick={randomizeCongruences}
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             width='1em'
             height='1em'
             viewBox='0 0 24 24'
-            stroke-width='2'
+            strokeWidth='2'
             stroke='currentColor'
             fill='none'
-            stroke-linecap='round'
-            stroke-linejoin='round'
+            strokeLinecap='round'
+            strokeLinejoin='round'
             className='icon icon-tabler icon-tabler-sparkles me-2 fs-5'
           >
             <path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
@@ -45,6 +119,7 @@ const CongruenceForm: React.FC = () => {
         <button
           className='btn btn-primary px-3 px-lg-4 py-2 shadow-sm rounded-0 fw-bold'
           type='button'
+          onClick={handleResultSubmit}
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'

@@ -275,3 +275,8 @@
   --bs-btn-disabled-bg: transparent;
   --bs-btn-disabled-border-color: #282828;
 }
+
+/* Decreases flickering when loading button preferences from localstorage  */
+.btn.form-label {
+  transition: none;
+}

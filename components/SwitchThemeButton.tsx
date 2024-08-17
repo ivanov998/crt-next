@@ -17,11 +17,11 @@ const SwitchThemeButton: NextPage = () => {
           width='1em'
           height='1em'
           viewBox='0 0 24 24'
-          stroke-width='2'
+          strokeWidth='2'
           stroke='currentColor'
           fill='none'
-          stroke-linecap='round'
-          stroke-linejoin='round'
+          strokeLinecap='round'
+          strokeLinejoin='round'
           className='icon icon-tabler'
         >
           {theme === 'dark' ? (
