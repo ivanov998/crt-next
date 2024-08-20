@@ -11,7 +11,7 @@ const Home: NextPage = () => {
       steps: true,
       solution: true,
       practice: false,
-      allSolutions: false,
+      moreSolutions: false,
     });
 
   // Changed only upon solve button submission in order to prevent unwanted behaviour when changing the options after submission
@@ -35,13 +35,13 @@ const Home: NextPage = () => {
 
     if (!loadedOptions) return;
 
-    const { steps, solution, practice, allSolutions } = loadedOptions;
+    const { steps, solution, practice, moreSolutions } = loadedOptions;
 
     setCalculatorOptions({
       steps,
       solution,
       practice,
-      allSolutions,
+      moreSolutions,
     });
   }, []);
 
@@ -65,12 +65,20 @@ const Home: NextPage = () => {
     return (
       <div>
         <h2 className='text-center'>Solution</h2>
-        <div className='p-1 shadow-sm step-wrapper mb-3 text-center'>
+        <div className='p-1 shadow-sm step-wrapper mb-3 text-center fw-bolder'>
           <p className='fs-3 fw-bolder mb-0'>
             {result.areModuliCoprime
               ? `X = ${result.result}`
               : 'There is no solution, because the moduli are not pairwise coprime.'}
           </p>
+          {bufferedCalculatorOptions.moreSolutions && (
+            <div className='mt-3 fs-3'>
+              <p>50 more solutions:</p>
+              <p className='scrollable-text px-2 px-lg-4'>
+                {result.solutions?.join(' , ')}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     );

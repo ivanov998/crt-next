@@ -94,3 +94,11 @@ input[type='number'] {
 .number-span {
   width: 45px;
 }
+
+.scrollable-text {
+  white-space: nowrap;         /* Prevent text from wrapping */
+  overflow-x: auto;
+  overflow-y: hidden;           /* Enable horizontal scrolling */
+  display: block;              /* Ensure the container behaves as a block */
+  width: 100%;                 /* Set a width for the container (can be customized) */
+}

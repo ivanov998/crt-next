@@ -53,6 +53,9 @@ const modularMultiplicativeInverse = (a: number, modulus: number) => {
   return 1;
 };
 
+const generateMoreSolutions = (result: number, prod: number): number[] =>
+  Array.from({ length: 50 }, (_, k) => result + prod * k);
+
 export const solveCRT = (input: ICongruenceInput[]): ISolutionResult => {
   // Product of all the moduli
   const prod: number = input.reduce(
@@ -180,9 +183,12 @@ export const solveCRT = (input: ICongruenceInput[]): ISolutionResult => {
 
   const result = `${(resultSum % prod).toString()} + ${prod}k`;
 
+  const solutions = generateMoreSolutions(resultSum % prod, prod);
+
   return {
     areModuliCoprime: true,
     result,
+    solutions,
     steps,
   };
 };

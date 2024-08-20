@@ -69,26 +69,12 @@ const CalculatorOptions: React.FC<ICalculatorOptionsProps> = ({
         </svg>
       </CalculatorOptionButton>
       <CalculatorOptionButton
-        name='All solutions'
-        selected={calculatorOptions.allSolutions}
-        option={'allSolutions'}
+        name='More solutions'
+        selected={calculatorOptions.moreSolutions}
+        option={'moreSolutions'}
         handleOnClick={handleOnClick}
       >
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='1em'
-          height='1em'
-          viewBox='0 0 24 24'
-          strokeWidth='2'
-          stroke='currentColor'
-          fill='none'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          className='icon icon-tabler icon-tabler-infinity main-icon fs-1 mb-2 text-muted'
-        >
-          <path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
-          <path d='M9.828 9.172a4 4 0 1 0 0 5.656a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828'></path>
-        </svg>
+        <i className='la la-ellipsis-h main-icon fs-1 mb-2 text-muted'></i>
       </CalculatorOptionButton>
     </div>
   );
