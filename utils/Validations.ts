@@ -2,7 +2,11 @@ import { z } from 'zod';
 
 const remainderValidationObject = z.union([
   z.string().min(0),
-  z.number().int().max(10000, { message: 'a cannot exceed 10000!' }),
+  z
+    .number()
+    .int()
+    .min(-10000, 'a cannot be less than -10000!')
+    .max(10000, { message: 'a cannot exceed 10000!' }),
 ]);
 
 const moduliValidationObject = z.union([
