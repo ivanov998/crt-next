@@ -6,6 +6,7 @@ import '../styles/bootstrap_overrides.css';
 import '../styles/globals.css';
 import '../styles/header.css';
 import '../styles/calculator.css';
+import CookieConsentBanner from '../components/CookieConsentBanner';
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -26,6 +27,7 @@ function App({ Component, pageProps }: AppProps) {
         <Layout>
           <Component {...pageProps} />
         </Layout>
+        <CookieConsentBanner />
       </ThemeProvider>
     </>
   );
