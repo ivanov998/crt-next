@@ -17,7 +17,9 @@ export interface ICalculatorOptionButtonProps {
   name: string;
   children: ReactNode;
   selected: boolean;
+  title: string;
   option: keyof ICalculatorOptions;
+  disabled?: boolean;
   handleOnClick: (option: keyof ICalculatorOptions) => void;
 }
 

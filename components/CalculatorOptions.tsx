@@ -12,6 +12,7 @@ const CalculatorOptions: React.FC<ICalculatorOptionsProps> = ({
         name='Explain steps'
         selected={calculatorOptions.steps}
         option={'steps'}
+        title='Get a comprehensive breakdown of each step in solving CRT problems'
         handleOnClick={handleOnClick}
       >
         <i className='la la-lightbulb-o main-icon fs-1 mb-2 text-muted'></i>
@@ -20,6 +21,7 @@ const CalculatorOptions: React.FC<ICalculatorOptionsProps> = ({
         name='Solution first'
         selected={calculatorOptions.solution}
         option='solution'
+        title='Show the solution before the steps'
         handleOnClick={handleOnClick}
       >
         <svg
@@ -46,6 +48,8 @@ const CalculatorOptions: React.FC<ICalculatorOptionsProps> = ({
         name='Practice mode'
         selected={calculatorOptions.practice}
         option={'practice'}
+        title='(Under development) Interactive practice mode to help you master solving CRT problems'
+        disabled={true}
         handleOnClick={handleOnClick}
       >
         <svg
@@ -72,6 +76,7 @@ const CalculatorOptions: React.FC<ICalculatorOptionsProps> = ({
         name='More solutions'
         selected={calculatorOptions.moreSolutions}
         option={'moreSolutions'}
+        title='Display 50 possible solutions for X based on the given congruences'
         handleOnClick={handleOnClick}
       >
         <i className='la la-ellipsis-h main-icon fs-1 mb-2 text-muted'></i>

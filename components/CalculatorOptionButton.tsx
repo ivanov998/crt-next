@@ -4,7 +4,9 @@ import { ICalculatorOptionButtonProps } from '../types/CalculatorProps';
 const CalculatorOptionButton: React.FC<ICalculatorOptionButtonProps> = ({
   name,
   children,
+  title,
   selected,
+  disabled,
   option,
   handleOnClick,
 }) => {
@@ -15,6 +17,7 @@ const CalculatorOptionButton: React.FC<ICalculatorOptionButtonProps> = ({
         id={`btn-${option}`}
         className='btn-check'
         checked={selected}
+        disabled={disabled}
         onChange={() => handleOnClick(option)}
       />
       <label
@@ -22,7 +25,7 @@ const CalculatorOptionButton: React.FC<ICalculatorOptionButtonProps> = ({
         data-bs-toggle='tooltip'
         data-bss-tooltip=''
         htmlFor={`btn-${option}`}
-        title='Get a comprehensive breakdown of each step in solving CRT problems'
+        title={title}
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
