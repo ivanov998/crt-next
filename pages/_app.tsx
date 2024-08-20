@@ -12,6 +12,34 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
+        <link rel='icon' href='/favicon.ico' />
+        <link
+          rel='icon'
+          href='/favicon-32x32.png'
+          sizes='32x32'
+          type='image/png'
+        />
+        <link
+          rel='icon'
+          href='/favicon-64x64.png'
+          sizes='64x64'
+          type='image/png'
+        />
+        <link
+          rel='icon'
+          href='/favicon-72x72.png'
+          sizes='72x72'
+          type='image/png'
+        />
+        <link
+          rel='icon'
+          href='/favicon-96x96.png'
+          sizes='96x96'
+          type='image/png'
+        />
+        <link rel='apple-touch-icon' href='/favicon-72x72.png' sizes='72x72' />
+        <meta name='msapplication-TileImage' content='/favicon-256x256.png' />
+        <meta name='msapplication-TileColor' content='#ffffff' />
         <meta charSet='utf-8' />
         <meta
           name='viewport'
