@@ -21,7 +21,7 @@ const CookieConsentBanner = () => {
   return (
     <div
       id='cb-cookie-banner'
-      className='alert alert-dark text-center mb-0 position-fixed bottom-0 w-100 py-4'
+      className='alert alert-dark text-center mb-0 position-fixed bottom-0 w-100 py-4 rounded-0 shadow-lg border-0 border-top'
       role='alert'
     >
       🍪 This website uses cookies to ensure you get the best experience on our
