@@ -71,14 +71,15 @@ const Home: NextPage = () => {
               ? `X = ${result.result}`
               : 'There is no solution, because the moduli are not pairwise coprime.'}
           </p>
-          {bufferedCalculatorOptions.moreSolutions && (
-            <div className='mt-3 fs-3'>
-              <p>50 more solutions:</p>
-              <p className='scrollable-text px-2 px-lg-4'>
-                {result.solutions?.join(' , ')}
-              </p>
-            </div>
-          )}
+          {bufferedCalculatorOptions.moreSolutions &&
+            result.solutions?.length && (
+              <div className='mt-3 fs-3'>
+                <p>50 more solutions:</p>
+                <p className='scrollable-text px-2 px-lg-4'>
+                  {result.solutions?.join(' , ')}
+                </p>
+              </div>
+            )}
         </div>
       </div>
     );
