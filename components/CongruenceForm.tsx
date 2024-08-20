@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ICongruenceFormProps,
   ICongruenceInput,
 } from '../types/CongruenceProps';
 import { generateRandomCongruences, solveCRT } from '../utils/Calculations';
+import { congruenceInputSchema } from '../utils/Validations';
 import CongruenceInput from './CongruenceInput';
 
 const CongruenceForm: React.FC<ICongruenceFormProps> = ({ setResult }) => {
@@ -13,6 +14,12 @@ const CongruenceForm: React.FC<ICongruenceFormProps> = ({ setResult }) => {
       modulo: '',
     }))
   );
+
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsFormValid(congruenceInputSchema.safeParse(congruenceInputs).success);
+  }, [congruenceInputs]);
 
   const setCongruencesValues = ({
     index,
@@ -35,7 +42,7 @@ const CongruenceForm: React.FC<ICongruenceFormProps> = ({ setResult }) => {
   const addNewCongruence = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     // Limited to 6 for now
-    if (congruenceInputs.length === 6) return;
+    if (congruenceInputs.length === 8) return;
     setCongruenceInput([...congruenceInputs, { remainder: '', modulo: '' }]);
   };
 
@@ -68,6 +75,8 @@ const CongruenceForm: React.FC<ICongruenceFormProps> = ({ setResult }) => {
   };
 
   const handleResultSubmit = () => {
+    // Prevent further action if solve button is submitted by tampering the attributes
+    if (!isFormValid) return;
     const result = solveCRT(congruenceInputs);
 
     setResult(result);
@@ -119,6 +128,7 @@ const CongruenceForm: React.FC<ICongruenceFormProps> = ({ setResult }) => {
         <button
           className='btn btn-primary px-3 px-lg-4 py-2 shadow-sm rounded-0 fw-bold'
           type='button'
+          disabled={!isFormValid}
           onClick={handleResultSubmit}
         >
           <svg
