@@ -5,7 +5,7 @@ export interface ICalculatorOptions {
   steps: boolean;
   solution: boolean;
   practice: boolean;
-  allSolutions: boolean;
+  moreSolutions: boolean;
 }
 
 export interface ICalculatorOptionsProps {
@@ -35,6 +35,7 @@ export interface ISolutionStepProps extends ISolutionStep {
 export interface ISolutionResult {
   areModuliCoprime: boolean;
   result?: string;
+  solutions?: number[];
   steps?: ISolutionStep[];
 }
 
