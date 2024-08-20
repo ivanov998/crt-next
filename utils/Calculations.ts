@@ -134,7 +134,7 @@ export const solveCRT = (input: ICongruenceInput[]): ISolutionResult => {
       text: congruences
         .map(
           (congruence, index) =>
-            `M&sup${index + 1}; = ${prod} / ${congruence.modulo} = ${
+            `M&#832${index + 1}; = ${prod} / ${congruence.modulo} = ${
               congruence.partialProduct
             }`
         )
@@ -146,7 +146,7 @@ export const solveCRT = (input: ICongruenceInput[]): ISolutionResult => {
       text: congruences
         .map(
           (congruence, index) =>
-            `Y&#832${index}; = ${congruence.multiplicativeInverse}`
+            `Y&#832${index + 1}; = ${congruence.multiplicativeInverse}`
         )
         .join('\n'),
       failureText: 'Common step of failure',
@@ -159,9 +159,16 @@ export const solveCRT = (input: ICongruenceInput[]): ISolutionResult => {
           (congruence) =>
             `(${congruence.remainder} x ${congruence.partialProduct} x ${congruence.multiplicativeInverse})`
         )
+        .join(' +\n ')}\n\nx = ${congruences
+        .map(
+          (congruence) =>
+            congruence.remainder *
+            congruence.partialProduct *
+            congruence.multiplicativeInverse
+        )
         .join(
-          ' +\n '
-        )}\nx = ${resultSum}\nx = ${resultSum} (mod ${prod})\nAfter modular reduction\nx = ${
+          ' + '
+        )} = ${resultSum}\n x = ${resultSum} (mod ${prod})\nAfter modular reduction\nx = ${
         resultSum % prod
       } (mod ${prod})`,
     },

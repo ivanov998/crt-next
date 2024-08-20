@@ -43,3 +43,10 @@ export interface ICongruenceExtended {
   partialProduct: number;
   multiplicativeInverse: number;
 }
+
+export type InputField = 'remainder' | 'modulo';
+
+export interface IValidationErrors {
+  inputError: boolean;
+  errorMessages: z.ZodIssue[];
+}
