@@ -105,6 +105,7 @@ const Home: NextPage = () => {
               {result.steps &&
                 result.steps.map((item, index) => (
                   <SolutionStep
+                    key={index}
                     stepNumber={index + 1}
                     title={item.title}
                     description={item.description}

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { z } from 'zod';
 
 export interface ICalculatorOptions {
   steps: boolean;
@@ -42,4 +43,11 @@ export interface ICongruenceExtended {
   modulo: number;
   partialProduct: number;
   multiplicativeInverse: number;
+}
+
+export type InputField = 'remainder' | 'modulo';
+
+export interface IValidationErrors {
+  inputError: boolean;
+  errorMessages: z.ZodIssue[];
 }
