@@ -6,6 +6,7 @@ import {
 import { generateRandomCongruences, solveCRT } from '../utils/Calculations';
 import { congruenceInputSchema } from '../utils/Validations';
 import CongruenceInput from './CongruenceInput';
+import * as gtag from '../lib/gtag';
 
 const CongruenceForm: React.FC<ICongruenceFormProps> = ({ setResult }) => {
   const [congruenceInputs, setCongruenceInput] = useState<ICongruenceInput[]>(
@@ -77,6 +78,14 @@ const CongruenceForm: React.FC<ICongruenceFormProps> = ({ setResult }) => {
   const handleResultSubmit = () => {
     // Prevent further action if solve button is submitted by tampering the attributes
     if (!isFormValid) return;
+
+    gtag.event({
+      action: 'click',
+      category: 'Button',
+      label: 'Solve Button',
+      value: 1,
+    });
+
     const result = solveCRT(congruenceInputs);
 
     setResult(result);

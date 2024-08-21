@@ -1,14 +1,29 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
+import * as gtag from '../lib/gtag';
 import Layout from '../components/Layout';
 import { ThemeProvider } from '../contexts/ThemeContext';
+import CookieConsentBanner from '../components/CookieConsentBanner';
 import '../styles/bootstrap_overrides.css';
 import '../styles/globals.css';
 import '../styles/header.css';
 import '../styles/calculator.css';
-import CookieConsentBanner from '../components/CookieConsentBanner';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      gtag.pageview(url);
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
+
   return (
     <>
       <Head>
