@@ -27,6 +27,55 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
+        <meta charSet='utf-8' />
+        <meta
+          name='viewport'
+          content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
+        />
+        <title>Chinese Remainder Theorem Calculator</title>
+        <meta
+          name='description'
+          content='Use our Chinese Remainder Theorem Calculator to solve systems of congruences with detailed step-by-step solutions. Easily find solutions to CRT problems online.'
+        />
+        <meta
+          property='og:title'
+          content='Chinese Remainder Theorem Calculator with Steps | CRT Solver'
+        />
+        <meta
+          property='og:description'
+          content='Solve Chinese Remainder Theorem problems with our online calculator and get step-by-step explanations. Ideal for students and professionals.'
+        />
+        <meta
+          property='og:image'
+          content='https://chinese-remainder-calculator.com/og-256x256.png'
+        />
+        <meta
+          property='og:url'
+          content='https://chinese-remainder-calculator.com/'
+        />
+        <meta property='og:type' content='website' />
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta
+          name='twitter:title'
+          content='Chinese Remainder Theorem Calculator with Steps | CRT Solver'
+        />
+        <meta
+          name='twitter:description'
+          content='Solve Chinese Remainder Theorem problems online and get detailed steps with our free calculator. Perfect for learning and problem-solving.'
+        />
+        <meta
+          name='twitter:image'
+          content='https://chinese-remainder-calculator.com/og-256x256.png'
+        />
+        <meta
+          name='keywords'
+          content='Chinese Remainder Theorem calculator, CRT solver, Chinese Remainder Theorem with steps, solve CRT online, congruence calculator, number theory calculator, math calculator, online math tool, algebra calculator, step by step CRT solutions'
+        />
+        <meta name='robots' content='index, follow' />
+        <link
+          rel='canonical'
+          href='https://chinese-remainder-calculator.com/'
+        />
         <link rel='icon' href='/favicon.ico' />
         <link
           rel='icon'
@@ -53,18 +102,8 @@ function App({ Component, pageProps }: AppProps) {
           type='image/png'
         />
         <link rel='apple-touch-icon' href='/favicon-72x72.png' sizes='72x72' />
-        <meta name='msapplication-TileImage' content='/favicon-256x256.png' />
+        <meta name='msapplication-TileImage' content='/og-256x256.png' />
         <meta name='msapplication-TileColor' content='#ffffff' />
-        <meta charSet='utf-8' />
-        <meta
-          name='viewport'
-          content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
-        />
-        <meta
-          name='description'
-          content='With our free online tool, you can effortlessly solve Chinese Remainder Theorem problems in no time.'
-        />
-        <title>Chinese Remainder Theorem Calculator</title>
       </Head>
       <ThemeProvider>
         <Layout>
