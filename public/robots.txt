@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://chinese-remainder-calculator.com/sitemap.xml
