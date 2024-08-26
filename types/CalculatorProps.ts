@@ -48,6 +48,15 @@ export interface ICongruenceExtended {
   multiplicativeInverse: number;
 }
 
+export interface ISolutionProps {
+  result: ISolutionResult;
+  calculatorOptions: ICalculatorOptions;
+}
+
+export interface IClearResultButtonProps {
+  handleOnClick: () => void;
+}
+
 export type InputField = 'remainder' | 'modulo';
 
 export interface IValidationErrors {
