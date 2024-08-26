@@ -4,6 +4,7 @@ import SolutionStep from '../components/SolutionStep';
 import { useEffect, useRef, useState } from 'react';
 import { ICalculatorOptions, ISolutionResult } from '../types/CalculatorProps';
 import CalculatorOptions from '../components/CalculatorOptions';
+import Solution from '../components/Solution';
 
 const Home: NextPage = () => {
   const [calculatorOptions, setCalculatorOptions] =
@@ -61,30 +62,6 @@ const Home: NextPage = () => {
     setResult(result);
   };
 
-  const renderSolution = (result: ISolutionResult) => {
-    return (
-      <div>
-        <h2 className='text-center'>Solution</h2>
-        <div className='p-1 shadow-sm step-wrapper mb-3 text-center fw-bolder'>
-          <p className='fs-3 fw-bolder mb-0'>
-            {result.areModuliCoprime
-              ? `X = ${result.result}`
-              : 'There is no solution, because the moduli are not pairwise coprime.'}
-          </p>
-          {bufferedCalculatorOptions.moreSolutions &&
-            result.solutions?.length && (
-              <div className='mt-3 fs-3'>
-                <p>50 more solutions:</p>
-                <p className='scrollable-text px-2 px-lg-4'>
-                  {result.solutions?.join(' , ')}
-                </p>
-              </div>
-            )}
-        </div>
-      </div>
-    );
-  };
-
   return (
     <>
       <p className='brief-description d-none d-lg-block px-5 rounded-3 fs-5 py-3 shadow-sm mx-3 mx-lg-5 text-'>
@@ -107,7 +84,12 @@ const Home: NextPage = () => {
       </div>
       {result && (
         <div className='px-lg-5 mt-3 mt-lg-5 fw-bold' ref={resultRef}>
-          {bufferedCalculatorOptions.solution && renderSolution(result)}
+          {bufferedCalculatorOptions.solution && (
+            <Solution
+              result={result}
+              calculatorOptions={bufferedCalculatorOptions}
+            />
+          )}
           {bufferedCalculatorOptions.steps && (
             <>
               <h2 className='text-center mt-5'>Steps</h2>
@@ -124,7 +106,12 @@ const Home: NextPage = () => {
                 ))}
             </>
           )}
-          {!bufferedCalculatorOptions.solution && renderSolution(result)}
+          {!bufferedCalculatorOptions.solution && (
+            <Solution
+              result={result}
+              calculatorOptions={bufferedCalculatorOptions}
+            />
+          )}
         </div>
       )}
     </>
