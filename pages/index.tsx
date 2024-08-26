@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ICalculatorOptions, ISolutionResult } from '../types/CalculatorProps';
 import CalculatorOptions from '../components/CalculatorOptions';
 import Solution from '../components/Solution';
+import ClearResultButton from '../components/ClearResultButton';
 
 const Home: NextPage = () => {
   const [calculatorOptions, setCalculatorOptions] =
@@ -57,7 +58,8 @@ const Home: NextPage = () => {
     localStorage.setItem('optionPreferences', JSON.stringify(newOptions));
   };
 
-  const handleSetResult = (result: ISolutionResult): void => {
+  // can handle both set and clear result
+  const handleSetResult = (result?: ISolutionResult): void => {
     setBufferedCalculatorOptions({ ...calculatorOptions });
     setResult(result);
   };
@@ -90,6 +92,7 @@ const Home: NextPage = () => {
               calculatorOptions={bufferedCalculatorOptions}
             />
           )}
+          <ClearResultButton handleOnClick={() => handleSetResult()} />
           {bufferedCalculatorOptions.steps && (
             <>
               <h2 className='text-center mt-5'>Steps</h2>
