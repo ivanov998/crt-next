@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z, ZodNumber, ZodString, ZodUnion } from 'zod';
 
 const remainderValidationObject = z.union([
   z.string().min(0),
@@ -18,10 +18,11 @@ const moduliValidationObject = z.union([
     .max(10000, { message: 'n cannot exceed 10000' }),
 ]);
 
-export const remainderSchema = z.preprocess(
-  (val) => (val === '' ? val : Number(val)),
-  remainderValidationObject
-);
+const validateObject = (
+  validationObject: ZodUnion<[z.ZodString, z.ZodNumber]>
+) => z.preprocess((val) => (val === '' ? val : Number(val)), validationObject);
+
+export const remainderSchema = validateObject(remainderValidationObject);
 
 export const moduliSchema = z.preprocess(
   (val) => (val === '' ? val : Number(val)),
@@ -33,7 +34,7 @@ export const moduliSchema = z.preprocess(
 export const congruenceInputSchema = z
   .object({
     remainder: z.preprocess(
-      (val) => Number(val) || NaN,
+      (val) => (val === '' ? val : val === '0' ? 0 : Number(val)),
       remainderValidationObject
     ),
     modulo: z.preprocess((val) => Number(val) || NaN, moduliValidationObject),
