@@ -7,6 +7,7 @@ import CalculatorOptions from '../components/CalculatorOptions';
 import Solution from '../components/Solution';
 import ClearResultButton from '../components/ClearResultButton';
 import loadContent from '../utils/LoadContent';
+import Link from 'next/link';
 
 export async function getStaticProps() {
   const introText = await loadContent('introduction');
@@ -129,6 +130,9 @@ const Home: NextPage = ({ introText }: any) => {
           className='mt-5 fw-bold'
           dangerouslySetInnerHTML={{ __html: introText }}
         ></div>
+        <Link href='/about' className='fs-4'>
+          Learn more...
+        </Link>
       </div>
     </>
   );
