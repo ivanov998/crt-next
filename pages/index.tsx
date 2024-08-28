@@ -125,7 +125,7 @@ const Home: NextPage = ({ introText }: any) => {
           )}
         </div>
       )}
-      <div className='px-2 px-lg-5 mt-5'>
+      <div className='px-3 px-lg-5 mt-5'>
         <div
           className='mt-5 fw-bold'
           dangerouslySetInnerHTML={{ __html: introText }}

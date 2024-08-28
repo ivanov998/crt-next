@@ -9,7 +9,7 @@ export async function getStaticProps() {
 
 const Home: NextPage = ({ theoryText }: any) => {
   return (
-    <div className='px-2 px-lg-5'>
+    <div className='px-3 px-lg-5'>
       <Link href='/' className='fs-4'>
         Back to the calculator...
       </Link>
