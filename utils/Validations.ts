@@ -24,10 +24,7 @@ const validateObject = (
 
 export const remainderSchema = validateObject(remainderValidationObject);
 
-export const moduliSchema = z.preprocess(
-  (val) => (val === '' ? val : Number(val)),
-  moduliValidationObject
-);
+export const moduliSchema = validateObject(moduliValidationObject);
 
 // We use separate preproccessing for the combined schema, because we allow empty string for the indiviual fields,
 // but they must not be allowed when checking if all congruences are correct

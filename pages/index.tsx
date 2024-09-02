@@ -6,8 +6,15 @@ import { ICalculatorOptions, ISolutionResult } from '../types/CalculatorProps';
 import CalculatorOptions from '../components/CalculatorOptions';
 import Solution from '../components/Solution';
 import ClearResultButton from '../components/ClearResultButton';
+import loadContent from '../utils/LoadContent';
+import Link from 'next/link';
 
-const Home: NextPage = () => {
+export async function getStaticProps() {
+  const introText = await loadContent('introduction');
+  return { props: { introText } };
+}
+
+const Home: NextPage = ({ introText }: any) => {
   const [calculatorOptions, setCalculatorOptions] =
     useState<ICalculatorOptions>({
       steps: true,
@@ -66,12 +73,13 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <p className='brief-description d-none d-lg-block px-5 rounded-3 fs-5 py-3 shadow-sm mx-3 mx-lg-5 text-'>
-        The Chinese Remainder Theorem (CRT) is a powerful mathematical concept
-        with numerous applications in number theory, cryptography, and computer
-        science. However, solving CRT problems can be challenging and
-        time-consuming. But not anymore! With our free online tool, you can
-        effortlessly solve Chinese Remainder Theorem problems in no time.
+      <p className='brief-description d-none d-lg-block px-5 rounded-3 fs-4 py-3 mx-3 mx-lg-5'>
+        Welcome to our Chinese Remainder Theorem solver! This tool helps you
+        easily solve systems of simultaneous congruences while providing
+        step-by-step explanations. Whether you're a student, a math enthusiast,
+        or someone in need of practical applications, our solver simplifies
+        complex calculations and guides you through the process with clear,
+        detailed instructions.
       </p>
       <div className='row g-0 mt-md-3 mt-lg-5'>
         <div className='col-md-6 col-lg-5 col-xl-6 d-flex justify-content-center mb-3 mb-md-0'>
@@ -117,6 +125,15 @@ const Home: NextPage = () => {
           )}
         </div>
       )}
+      <div className='px-3 px-lg-5 mt-5'>
+        <div
+          className='mt-5 fw-bold'
+          dangerouslySetInnerHTML={{ __html: introText }}
+        ></div>
+        <Link href='/about' className='fs-4'>
+          Learn more...
+        </Link>
+      </div>
     </>
   );
 };
